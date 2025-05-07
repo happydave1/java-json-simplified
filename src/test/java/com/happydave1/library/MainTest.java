@@ -16,4 +16,12 @@ public class MainTest {
     public void shouldAnswerWithTrue() {
         assertTrue(true);
     }
+
+    @Test
+    public void checkJsonCreation() {
+        // test with toy POJO
+        Task task = new Task(1, "wash dishes");
+        JSON testJson = new JSON(task); 
+        assertTrue(testJson.getObject() == task);
+    }
 }
