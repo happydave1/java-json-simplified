@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 
 public class JSONFile {
@@ -21,43 +22,29 @@ public class JSONFile {
         this.jsonFilePath = jsonFilePath;
         this.jsonObj = jsonObj;
         try {
-            writeObj(this.jsonObj);
+            writeObj();
         } catch (IOException e) {
             System.out.println(e);
         } 
         
     }
 
-    public void put(String key, String value) {
-        // TODO: implement
-    }
-
-    public void remove(String key) {
-
-    }
-
-    public void update(String key) {
-
-    }
-
     public void setObj(JSON jsonObj) {
-        // TODO: implement
+        this.jsonObj = jsonObj;
+        try {
+            writeObj();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public JSON getObj() {
         return this.jsonObj;
     }
 
-    private void writeObj(JSON jsonObj) throws IOException {
-        Files.writeString(this.jsonFilePath, jsonObj.toString(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    private void writeObj() throws IOException {
+        Files.writeString(this.jsonFilePath, this.jsonObj.toString(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public static void main(String[] args) throws IOException {
-        // driver code
 
-        Path testPath = Paths.get("target\\outputs\\json\\test.json");
-        Task testTask = new Task(1, "do dishes");
-        JSON testJsonObject = new JSON(testTask);
-        JSONFile testFile = new JSONFile(testPath, testJsonObject); // should automatically instantiate the file
-    }
 }

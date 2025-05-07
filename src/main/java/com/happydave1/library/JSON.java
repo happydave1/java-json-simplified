@@ -19,7 +19,8 @@ public class JSON {
         for (Field field : this.obj.getClass().getDeclaredFields()) {
             field.setAccessible(true); // access private fields
             Object val = field.get(this.obj);
-            json += field.getName() + ":" + val;
+            json += "\"" + field.getName() + "\"" + ":" + "\"" + val + "\"";
+
             if (counter + 1 < numFields) {
                 counter++;
                 json += ",";
